@@ -1,6 +1,6 @@
 public class HelloWorld {
     public static void main(String[] args) {
-        // Put a breakpoint on line 6. When the debugger stops there, choose "Step Into"
+        // Put a breakpoint on line 4. When the debugger stops there, choose "Step Into"
         debugPractice();
 
         // After you step out of debugPractice, you should end up here
@@ -10,11 +10,10 @@ public class HelloWorld {
 
     /* Use this function to play around with IntelliJ's debugger */
     public static void debugPractice() {
-        // After you stepped into, you should end up here. "Step Over" until you reach line 14. What are the values of x, y, and z?
         int x, y, z;
 
-        // "Step Over" and watch the values of x, y, and z in the Variables window.
-        x = 1;
+        x = 1; // After you stepped into, you should end up here. What are the values of x, y, and z?
+        // "Step Over" and watch the values of x, y, and z in the Variables window. Go until line 20
         y = 2;
         z = 3;
 
