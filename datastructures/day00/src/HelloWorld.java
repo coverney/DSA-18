@@ -5,6 +5,7 @@ public class HelloWorld {
 
         // After you step out of debugPractice, you should end up here
         System.out.println("Hello, World!");
+
     }
 
     /* Use this function to play around with IntelliJ's debugger */
