@@ -9,20 +9,20 @@ import java.util.LinkedList;
  */
 public class MyQueue<T> implements QueueADT<T> {
 
-    private LinkedList<T> ll;
+    private LinkedList<Integer> ll;
 
     public MyQueue() {
         ll = new LinkedList<>();
     }
 
     @Override
-    public void enqueue(T item) {
+    public void enqueue(int item) {
         ll.add(item);
     }
 
     @Override
     public T dequeue() {
-        return ll.removeFirst();
+        return (T) ll.removeFirst();
     }
 
     @Override
@@ -32,6 +32,6 @@ public class MyQueue<T> implements QueueADT<T> {
 
     @Override
     public T front() {
-        return ll.getFirst();
+        return (T) ll.getFirst();
     }
 }
