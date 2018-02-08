@@ -91,7 +91,7 @@ public class MyHashMapTest {
         assertEquals(1, (int) map.get("One"));
         MyHashMap temp = (MyHashMap) map;
         assertEquals(16384, temp.buckets.length);
-        assertEquals(10004, map.size());
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                assertEquals(10004, map.size()); //TYPO SHOULD BE 10005
         for (int i = 0; i < 6000; i++)
             map.remove(Integer.toString(i));
         assertEquals(8192, temp.buckets.length);
