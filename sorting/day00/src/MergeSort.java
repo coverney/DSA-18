@@ -35,7 +35,7 @@ public class MergeSort extends SortAlgorithm {
      * Given two sorted arrays a and b, return a new sorted array containing
      * all elements in a and b. A test for this method is provided in `SortTest.java`
      * Use Insertion Sort if the length of the array is <= INSERTION_THRESHOLD
-     * QUESTION: WHY IS THE INSERTION SORT INCLUSION IN THIS FUNCTION? AND WHY IS IT BETTER THAN A SIMPLE MERGE?
+     * QUESTION: WHY IS THE INSERTION SORT INCLUSION IN THIS FUNCTION? AND WHY IS IT BETTER THAN A SIMPLE MERGE? for small array lengths the bigO is comparable for insertion and merge sort.
      */
     public int[] merge(int[] a, int[] b) {
         if (a.length + b.length <= INSERTION_THRESHOLD){
