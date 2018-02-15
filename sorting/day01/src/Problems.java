@@ -21,6 +21,8 @@ public class Problems {
     }
 
     // Runtime of this algorithm is O(N^2). Sad! We provide it here for testing purposes
+    // O(N^2) because of the sorting involved. seen is a sorted array with each element of out being
+    // the median from seen with one added input
     public static double[] runningMedianReallySlow(int[] A) {
         double[] out = new double[A.length];
         List<Integer> seen = new ArrayList<>();
@@ -39,10 +41,45 @@ public class Problems {
      *
      * @param inputStream an input stream of integers
      * @return the median of the stream, after each element has been added
+     * QUESTION: what is the run-time? O(NlogN)
      */
     public static double[] runningMedian(int[] inputStream) {
         double[] runningMedian = new double[inputStream.length];
-        // TODO
+        //keep two PQs (one max and one min) with the median at the top of both. when a new value is added depending on whether the size is odd or even
+        //calculate the median and add it to the runningMedian array
+        PriorityQueue<Integer> min = minPQ();
+        PriorityQueue<Integer> max = maxPQ();
+
+        for (int i = 0; i < inputStream.length; i++) {
+            if (i == 0 || inputStream[i] < max.peek()){
+                max.offer(inputStream[i]);
+            }
+            else{
+                min.offer(inputStream[i]);
+            }
+
+            //balance the two PQs
+            while (max.size() > min.size()+1){
+                min.offer(max.poll());
+            }
+
+            while (min.size() > max.size()+1){
+                max.offer(min.poll());
+            }
+
+            //calculate the median
+
+            if (min.size() == max.size()){
+                runningMedian[i] = (min.peek() + max.peek())*0.5;
+            }
+            else if (min.size() > max.size()){
+                runningMedian[i] = min.peek();
+            }
+            else if (max.size() > min.size()){
+                runningMedian[i] = max.peek();
+            }
+        }
+
         return runningMedian;
     }
 

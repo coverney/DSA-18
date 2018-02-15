@@ -11,16 +11,17 @@ public class QuickSort extends SortAlgorithm {
     }
 
     /**
-     * TODO
-     * Best-case runtime:
-     * Worst-case runtime:
-     * Average-case runtime:
+     * Best-case runtime: O(NlogN)
+     * Worst-case runtime: O(N^2) this happens when unbalanced partitioning
+     * Average-case runtime: O(NlogN)
      *
-     * Space-complexity:
+     * Space-complexity: O(logN) this is due to the recursive calls
      */
     @Override
     public int[] sort(int[] array) {
-        // TODO: Sort the array. Make sure you avoid the O(N^2) runtime worst-case
+        this.shuffleArray(array);
+        //now sort it
+        quickSort(array, 0, array.length-1);
         return array;
     }
 
@@ -35,7 +36,8 @@ public class QuickSort extends SortAlgorithm {
     public void quickSort(int[] a, int lo, int hi) {
         if (lo < hi) {
             int p = partition(a, lo, hi);
-            // TODO
+            quickSort(a, lo, p-1);
+            quickSort(a, p+1, hi);
         }
     }
 
@@ -49,8 +51,18 @@ public class QuickSort extends SortAlgorithm {
      * @param hi The ending index of the subarray being considered (inclusive)
      */
     public int partition(int[] array, int lo, int hi) {
-        // TODO
-        return 0;
+        // another solution:  keep track of boundary of smaller array (index) and then swap elmenets smaller than pivot with index, at the very end swap pivot with element at middle
+        int pivot = array[lo];
+        int index = lo;
+        for (int i = lo; i <= hi; i++) {
+            if (array[i] < pivot){
+                swap(array, index, i);
+                index++;
+                swap(array, index, i);
+
+            }
+        }
+        return index;
     }
 
 }
