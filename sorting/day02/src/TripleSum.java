@@ -8,6 +8,7 @@ public class TripleSum {
     static int tripleSum(int arr[], int sum) {
         //O(N^2)
         //sort the array in ascending order
+        // O(1) space: iterate through arr and keep track of left and right of arr and then adjust the two indexes accordingly replaces contents in inner loop
         Arrays.sort(arr);
         int result = 0;
 

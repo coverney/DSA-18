@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 public class FrequencyPrint {
 
     static String frequencyPrint(String s) {
-        // QUESTION: QUESTIONS SAYS DECREASING BUT TEST LOOK FOR INCREASING
-
         // INCREASING order of frequencies
         // go through each index of the string and add the character into a HashMap with the key as the character and the value as the counts
         // of a certain character.
         // sort the hashmap by value and then concatenate the results into a string
+
+        //O(N) solution: make another hashmap that flips the key and value and then iterate through the new hashmap using range of nubmer of words and checking
+        //if the hasmap contains that number and then adding the value (word) to the result
+
         HashMap<String, Integer> map = new HashMap<String, Integer>();
 
 
@@ -30,7 +32,7 @@ public class FrequencyPrint {
         }
 
         //sort through map by value
-        //QUESTION: WHAT IS THE BIG O OF THAT?
+        //QUESTION: WHAT IS THE BIG O OF THAT? O(NlogN)
         Map<String, Integer> sortedMap =
         map.entrySet().stream()
                         .sorted((k1, k2) -> -k1.getValue().compareTo(k2.getValue()))
