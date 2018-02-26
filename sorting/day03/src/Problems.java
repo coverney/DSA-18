@@ -4,6 +4,7 @@ import java.util.LinkedList;
 public class Problems {
 
     static void sortNumsBetween100s(int[] A) {
+        // Big O: O(w(n+b))
         //add 100 to all the elms of A and then radix sort it
         for (int i = 0; i < A.length; i++) {
             A[i] = A[i] + 100;
@@ -64,7 +65,9 @@ public class Problems {
 
     /**
      * @param A The array to count swaps in
-     * QUESTION: HOW WOULD I DO THIS?
+     * very specialized merge sort, looking for inversions
+     * as you are merging you keep track of 3 pointers: left subarray, right subarray,
+     * have two merge functions, one returns the count and one returns the array for all the recursive calls
      */
 
     public static int countSwaps(int[] A) {
