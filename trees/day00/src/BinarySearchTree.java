@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class BinarySearchTree<T extends Comparable<T>> {
@@ -27,9 +28,26 @@ public class BinarySearchTree<T extends Comparable<T>> {
             add(k);
     }
 
+    //O(N) goes through each element once
+    //The order of "inorder" is: left child -> parent -> right child
     public List<T> inOrderTraversal() {
-        // TODO
-        return null;
+        List<T> result = new ArrayList<T>();
+
+        if (root != null) {
+            helper(result, root);
+        }
+
+        return result;
+    }
+
+    public void helper(List<T> lst, TreeNode<T> nd) {
+        if (nd.leftChild != null)
+            helper(lst, nd.leftChild);
+        //keep going left until you can't anymore then start adding
+        lst.add(nd.key);
+        //then start going right
+        if (nd.rightChild != null)
+            helper(lst, nd.rightChild);
     }
 
     /**
@@ -52,6 +70,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return true;
     }
 
+    //O(h)?
     private TreeNode<T> delete(TreeNode<T> n) {
         // Recursive base case
         if (n == null) return null;
@@ -66,8 +85,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
             replacement = (n.hasRightChild()) ? n.rightChild : n.leftChild; // replacement is the non-null child
         else {
             // Case 3: two children
-            // TODO
-            replacement = null;
+            //pick predecessor or successor as replacement for n and then delete the old predecessor/successor to reorganize
+            //the BST. Don't forget ot move the children of n to the children of the new n
+            replacement = findSuccessor(n);
+            delete(replacement);
+            replacement.moveChildrenFrom(n);
         }
 
         // Put the replacement in its correct place, and set the parent.
@@ -95,14 +117,64 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return null;
     }
 
+    // Worst case O(N) for a one sided and sorted (in descending order) BST
+    // Average O(h)?
     private TreeNode<T> findPredecessor(TreeNode<T> n) {
-        // TODO
-        return null;
+        if (n.leftChild != null) {
+            //return max of leftChild BST
+            TreeNode<T> prede = n.leftChild;
+            while (prede.rightChild != null) {
+                prede = prede.rightChild;
+            }
+            return prede;
+        }
+        // else start from root and find predecessor
+        TreeNode<T> prede = null;
+        TreeNode<T> temp = root;
+        while (temp != null) {
+            if (n.key.equals(temp.key)) {
+                // found our node value so break since we already know it doesn't have a left kid
+                break;
+            } else if (n.key.compareTo(temp.key) < 0) {
+                //if n is less than key then move to left
+                temp = temp.leftChild;
+            } else if (n.key.compareTo(temp.key) > 0) {
+                //if n is greater than key then set prede and move right
+                prede = temp;
+                temp = temp.rightChild;
+            }
+        }
+        return prede;
     }
 
+    // Worst case O(N) for a one sided and sorted (in ascending order) BST
+    // Average O(h)?
     private TreeNode<T> findSuccessor(TreeNode<T> n) {
-        // TODO
-        return null;
+        if (n.rightChild != null) {
+            //return min of rightChild BST
+            TreeNode<T> succ = n.rightChild;
+            while (succ.leftChild != null) {
+                succ = succ.leftChild;
+            }
+            return succ;
+        }
+        // else start from root and find successor
+        TreeNode<T> succ = null;
+        TreeNode<T> temp = root;
+        while (temp != null) {
+            if (n.key.equals(temp.key)) {
+                // found our node value so break since we already know it doesn't have a right kid
+                break;
+            } else if (n.key.compareTo(temp.key) < 0) {
+                //if n is less than key then set succ and move to left to get as close as possible to n
+                succ = temp;
+                temp = temp.leftChild;
+            } else if (n.key.compareTo(temp.key) > 0) {
+                //if n is greater than key then move right to get a value bigger
+                temp = temp.rightChild;
+            }
+        }
+        return succ;
     }
 
     /**
