@@ -70,7 +70,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return true;
     }
 
-    //O(h)?
+    // Worst case: O(N) but average O(h) or O(logN)
     private TreeNode<T> delete(TreeNode<T> n) {
         // Recursive base case
         if (n == null) return null;
@@ -87,7 +87,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
             // Case 3: two children
             //pick predecessor or successor as replacement for n and then delete the old predecessor/successor to reorganize
             //the BST. Don't forget ot move the children of n to the children of the new n
-            replacement = findSuccessor(n);
+//            replacement = findSuccessor(n);
+//            delete(replacement);
+            replacement = n.leftChild;
             delete(replacement);
             replacement.moveChildrenFrom(n);
         }
@@ -118,7 +120,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     // Worst case O(N) for a one sided and sorted (in descending order) BST
-    // Average O(h)?
+    // Average O(h) or O(logN)
     private TreeNode<T> findPredecessor(TreeNode<T> n) {
         if (n.leftChild != null) {
             //return max of leftChild BST
@@ -148,7 +150,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     // Worst case O(N) for a one sided and sorted (in ascending order) BST
-    // Average O(h)?
+    // Average O(h) or O(logN)
     private TreeNode<T> findSuccessor(TreeNode<T> n) {
         if (n.rightChild != null) {
             //return min of rightChild BST
