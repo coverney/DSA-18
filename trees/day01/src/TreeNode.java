@@ -2,6 +2,7 @@ public class TreeNode<T extends Comparable<T>> {
     T key;
     TreeNode<T> leftChild, rightChild;
     int height;
+    int count;
 
     public TreeNode(T key) {
         this(key, 0);
@@ -12,6 +13,7 @@ public class TreeNode<T extends Comparable<T>> {
         this.leftChild = null;
         this.rightChild = null;
         this.height = height;
+        this.count = 1;
     }
 
     public boolean hasLeftChild() {
