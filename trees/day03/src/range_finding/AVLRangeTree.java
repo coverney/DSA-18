@@ -72,7 +72,7 @@ public class AVLRangeTree extends BinarySearchTree<Integer> {
 
     // Return all keys that are between [lo, hi] (inclusive).
     // L = hi - lo
-    // TODO: runtime = O(log(N) + L)
+    // Runtime = O(log(N) + L)
     public List<Integer> rangeIndex(int lo, int hi) {
         // TODO
         List<Integer> l = new LinkedList<>();
@@ -80,10 +80,15 @@ public class AVLRangeTree extends BinarySearchTree<Integer> {
     }
 
     // return the number of keys between [lo, hi], inclusive
-    // TODO: runtime = O(logN))
+    // Runtime = O(logN))
     public int rangeCount(int lo, int hi) {
         // TODO
         return 0;
+    }
+
+    //returns the number of keys <= k
+    public int rank(int k){
+        
     }
 
     /**
