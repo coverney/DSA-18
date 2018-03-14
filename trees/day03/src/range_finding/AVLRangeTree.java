@@ -13,6 +13,7 @@ public class AVLRangeTree extends BinarySearchTree<Integer> {
         n = super.delete(n, key);
         if (n != null) {
             n.height = 1 + Math.max(height(n.leftChild), height(n.rightChild));
+            n.num = numChildren(n) + 1;
             return balance(n);
         }
         return null;
@@ -26,6 +27,7 @@ public class AVLRangeTree extends BinarySearchTree<Integer> {
         n = super.insert(n, key);
         if (n != null) {
             n.height = 1 + Math.max(height(n.leftChild), height(n.rightChild));
+            n.num = numChildren(n) + 1;
             return balance(n);
         }
         return null;
@@ -75,22 +77,60 @@ public class AVLRangeTree extends BinarySearchTree<Integer> {
     // Runtime = O(log(N) + L)
 
     public List<Integer> rangeIndex(int lo, int hi) {
-        // TODO
         List<Integer> l = new LinkedList<>();
+        traversal(root, l, lo, hi);
         return l;
     }
 
     // return the number of keys between [lo, hi], inclusive
     // Runtime = O(logN))
-
     public int rangeCount(int lo, int hi) {
-        // TODO
-        return 0;
+        int diff = rank(root, hi) - rank(root, lo - 1);
+        if (diff < 0) {
+            diff = 0;
+        }
+        return diff;
+    }
+
+    private void traversal(RangeNode<Integer> node, List<Integer> list, int lo, int hi){
+        if (node != null) {
+            if (node.key >= lo && node.key <= hi){
+                traversal(node.leftChild, list, lo, hi);
+                list.add(node.key);
+                traversal(node.rightChild, list, lo, hi);
+            }
+            else if (node.key <= lo){
+                traversal(node.rightChild, list, lo, hi);
+            }
+            else if (node.key >= hi){
+                traversal(node.leftChild, list, lo, hi);
+            }
+
+        }
     }
 
     //returns the number of keys <= k
-    public int rank(int k){
-        
+    private int rank(RangeNode<Integer> node, int k) {
+        if (node != null && node.key <= k) {
+            if (node.leftChild != null) {
+                if (node.rightChild != null) {
+                    return 1 + node.leftChild.num + rank(node.rightChild, k);
+                } else {
+                    return 1 + node.leftChild.num;
+                }
+            } else if (node.rightChild != null) {
+                return 1 + rank(node.rightChild, k);
+            } else {
+                return 1;
+            }
+
+        } else {
+            if (node != null && node.leftChild != null) {
+                return rank(node.leftChild, k);
+            } else {
+                return 0;
+            }
+        }
     }
 
     /**
@@ -111,8 +151,13 @@ public class AVLRangeTree extends BinarySearchTree<Integer> {
         RangeNode<Integer> y = x.leftChild;
         x.leftChild = y.rightChild;
         y.rightChild = x;
+
         x.height = 1 + Math.max(height(x.leftChild), height(x.rightChild));
         y.height = 1 + Math.max(height(y.leftChild), height(y.rightChild));
+
+        x.num = numChildren(x) + 1;
+        y.num = numChildren(y) + 1;
+
         return y;
     }
 
@@ -125,6 +170,21 @@ public class AVLRangeTree extends BinarySearchTree<Integer> {
         y.leftChild = x;
         x.height = 1 + Math.max(height(x.leftChild), height(x.rightChild));
         y.height = 1 + Math.max(height(y.leftChild), height(y.rightChild));
+
+        x.num = numChildren(x) + 1;
+        y.num = numChildren(y) + 1;
+
         return y;
+    }
+
+    private int numChildren(RangeNode<Integer> node) {
+        int result = 0;
+        if (node.leftChild != null) {
+            result += node.leftChild.num;
+        }
+        if (node.rightChild != null) {
+            result += node.rightChild.num;
+        }
+        return result;
     }
 }

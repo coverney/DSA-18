@@ -33,18 +33,19 @@ public class RangeTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        rangeTree = new AVLRangeTree[6];
+        rangeTree = new AVLRangeTree[7];
         for (int i = 0; i < rangeTree.length; i++) {
             rangeTree[i] = new AVLRangeTree();
         }
-        inputs = new Integer[6][];
+        inputs = new Integer[7][];
         inputs[0] = new Integer[]{3, 2, 1, 4};
         inputs[1] = new Integer[]{3, 1, 2, 7, 10, -3, 5, -10, 16, 13};
         inputs[2] = new Integer[]{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
         inputs[3] = new Integer[]{13, 12, 10, 5, 3, -1, -7, -10, -50};
         inputs[4] = new Integer[]{23, 15, 10, 8, 40, 38, 37, 36, 24, 25, 26, 27};
         inputs[5] = new Integer[]{2, 17, 45, 3, 90, 16, 71, 37, 61, 36, 24, 56, 48, 57, 30, 81, 73, 1, 18, 33, 90, 8, 69, 3, 90, 31, 92, 74, 11, 80, 30, 53, 38, 93, 57, 60, 88, 64, 26, 25, 0, 76, 15, 40, 2, 36, 44, 10, 84, 99, 13, 36, 91, 12, 92, 8, 72, 72, 2, 45, 72, 79, 92, 9, 35, 89, 18, 83, 59, 54, 21, 12, 61, 2, 60, 87, 72, 79, 64, 83, 67, 76, 8, 57, 32, 91, 19, 48, 34, 81, 89, 98, 94, 23, 62, 93, 34, 16, 7, 10};
-        for (int i = 0; i < 6; i++) {
+        inputs[6] = new Integer[]{23, 24, 36, 37, 40};
+        for (int i = 0; i < 7; i++) {
             rangeTree[i].addAll(inputs[i]);
         }
     }
@@ -105,6 +106,11 @@ public class RangeTest {
     void testRangeCount8() {
         assertEquals(correctRange(inputs[5], 5, 38).length, rangeTree[5].rangeCount(5, 38));
         assertEquals(correctRange(inputs[5], 49, 56).length, rangeTree[5].rangeCount(49, 56));
+    }
+
+    @Test
+    void testRangeCount9() {
+        assertEquals(correctRange(inputs[6], 22, 26).length, rangeTree[6].rangeCount(22, 26));
     }
 
     @Test

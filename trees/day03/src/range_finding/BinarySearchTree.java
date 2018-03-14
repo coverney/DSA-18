@@ -68,6 +68,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
                 n.leftChild = tmp.leftChild;
             }
         }
+        n.num = n.num - 1;
         return n;
     }
 
@@ -85,6 +86,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     RangeNode<T> deleteMin(RangeNode<T> n) {
         if (n.leftChild == null) return n.rightChild;
         n.leftChild = deleteMin(n.leftChild);
+        n.num = n.num - 1;
         return n;
     }
 
@@ -113,6 +115,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         } else {
             node.rightChild = insert(node.rightChild, key);
         }
+        node.num = node.num + 1;
         return node;
     }
 }
