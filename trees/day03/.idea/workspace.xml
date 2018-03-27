@@ -106,8 +106,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -141,8 +143,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -462,6 +462,53 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/range_finding/AVLRangeTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#4344#4345#0" expanded="true" />
+            <element signature="e#4409#4410#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/range_finding/RangeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" column="21" lean-forward="false" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+          <folding>
+            <element signature="e#235#236#0" expanded="true" />
+            <element signature="e#263#264#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/RangeTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3222">
+          <caret line="199" column="47" lean-forward="false" selection-start-line="199" selection-start-column="47" selection-end-line="199" selection-end-column="47" />
+          <folding>
+            <element signature="e#2455#2456#0" expanded="true" />
+            <element signature="e#2552#2553#0" expanded="true" />
+            <element signature="e#2592#2593#0" expanded="true" />
+            <element signature="e#2689#2690#0" expanded="true" />
+            <element signature="e#2729#2730#0" expanded="true" />
+            <element signature="e#2826#2827#0" expanded="true" />
+            <element signature="e#4030#4031#0" expanded="true" />
+            <element signature="e#4131#4132#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/range_finding/BinarySearchTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1494">
+          <caret line="88" column="8" lean-forward="false" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/range_finding/AVLRangeTree.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
