@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -16,9 +17,12 @@ public class Permutations {
         }
     }
 
+    // Time: O(n!)
+    // Space: O(n*n!) permutations is a list of lists
     public static List<List<Integer>> permutations(List<Integer> A) {
-        // TODO
+        Set<Integer> unused = new HashSet<Integer>(A);
         List<List<Integer>> permutations = new LinkedList<>();
+        backtrack(new LinkedList<Integer>(), unused, permutations);
         return permutations;
     }
 
