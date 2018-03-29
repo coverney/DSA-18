@@ -12,7 +12,7 @@ public class CoinsOnAClock {
         return B;
     }
 
-    //Time: O(n!)??
+    //Time: O(3^n), n is height, an each node has three branches
     //Space: O(n^2): array of arrays
     public static List<char[]> coinsOnAClock(int pennies, int nickels, int dimes, int hoursInDay) {
         List<char[]> result = new ArrayList<>();

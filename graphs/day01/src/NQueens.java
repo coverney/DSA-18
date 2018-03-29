@@ -80,7 +80,7 @@ public class NQueens {
         return B;
     }
 
-    //Time: O(N) for validation, O(N*N) for traversal, another n for starting a new board?
+    //Time: O(N) for validation, O(N^N) for traversal because height of tree is n and each node could have n branches
     //Space: several n*n 2D arrays
     public static List<char[][]> nQueensSolutions(int n) {
         // makes an array of board solutions
