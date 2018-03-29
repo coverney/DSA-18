@@ -17,7 +17,7 @@ public class Permutations {
         }
     }
 
-    // Time: O(n*n!) height of the tree is n
+    // Time: O(n!)
     // Space: O(n*n!) permutations is a list of lists
     public static List<List<Integer>> permutations(List<Integer> A) {
         Set<Integer> unused = new HashSet<Integer>(A);
