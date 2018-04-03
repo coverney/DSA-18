@@ -9,15 +9,15 @@ public class Board {
     private int n;
     public int[][] tiles;
 
-    //TODO
     // Create a 2D array representing the solved board state
-    private int[][] goal = {{}};
+    private int[][] goal = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
 
     /*
      * Set the global board size and tile state
      */
     public Board(int[][] b) {
-        // TODO: Your code here
+        this.tiles = b;
+        this.n = 3;
     }
 
     /*
@@ -25,24 +25,41 @@ public class Board {
      (equal to 3 for 8 puzzle, 4 for 15 puzzle, 5 for 24 puzzle, etc)
      */
     private int size() {
-        // TODO: Your code here
-        return 0;
+        return this.n;
     }
 
     /*
      * Sum of the manhattan distances between the tiles and the goal
      */
     public int manhattan() {
-        // TODO: Your code here
-        return 0;
+        int manhattan = 0;
+        for (int i = 0; i < this.tiles.length; i++) {
+            for (int j = 0; j < this.tiles[i].length; j++) {
+                int value = this.tiles[i][j];
+                if (value == 0){
+                    continue;
+                }
+                value -= 1;
+                int hori = Math.abs(j - (value % 3));
+                int verti = Math.abs(i - value / 3);
+                manhattan += hori + verti;
+            }
+        }
+        return manhattan;
     }
 
     /*
      * Compare the current state to the goal state
      */
     public boolean isGoal() {
-        // TODO: Your code here
-        return false;
+        for (int i = 0; i < this.tiles.length; i++) {
+            for (int j = 0; j < this.tiles[i].length; j++) {
+                if (this.tiles[i][j] != this.goal[i][j]){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /*
