@@ -53,24 +53,22 @@ public class Solver {
         PriorityQueue<State> open = new PriorityQueue<>();
         List<State> closed = new LinkedList<>();
         open.add(this.solutionState);
+        if (!this.solutionState.board.solvable()) {
+            this.minMoves = -1;
+            this.solved = false;
+            return;
+        }
         outerloop:
         while (!open.isEmpty()) {
             State q = open.poll();
-            if (!q.board.solvable()) {
-                continue;
-            }
             Iterable<Board> neighbors = q.board.neighbors();
             for (Board neighbor : neighbors) {
-//                neighbor.printBoard();
-                if (!neighbor.solvable()) {
-                    continue;
-                }
                 State state = new State(neighbor, q.moves + 1, q);
 
                 if (neighbor.isGoal()) {
                     //stop search
                     this.solutionState = state;
-                    minMoves = state.moves;
+                    this.minMoves = state.moves;
                     this.solved = true;
                     break outerloop;
 
@@ -112,7 +110,7 @@ public class Solver {
     public Iterable<Board> solution() {
         State state = this.solutionState;
         List<Board> list = new LinkedList<>();
-        while(state != null) {
+        while (state != null) {
             list.add(state.board);
             state = state.prev;
         }
@@ -126,7 +124,6 @@ public class Solver {
     public static void main(String[] args) {
         int[][] initState = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
         Board initial = new Board(initState);
-
         Solver solver = new Solver(initial);
     }
 

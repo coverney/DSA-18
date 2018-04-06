@@ -80,9 +80,8 @@ public class Board {
     public boolean solvable() {
         boolean[] reference = new boolean[n * n - 1];
         int num_inv = 0;
-        for (int i = 0; i < this.tiles.length; i++) {
-            for (int j = 0; j < this.tiles[i].length; j++) {
-                int value = this.tiles[i][j];
+        for (int[] tile : this.tiles) {
+            for (int value : tile) {
                 if (value != 0) {
                     reference[value - 1] = true;
                     for (int k = 0; k < value - 1; k++) {
@@ -153,13 +152,14 @@ public class Board {
         return true;
     }
 
-    private int[][] clone(int[][] tiles){
+    private int[][] clone(int[][] tiles) {
         int[][] new_tiles = new int[this.n][this.n];
         for (int i = 0; i < this.n; i++) {
             new_tiles[i] = tiles[i].clone();
         }
         return new_tiles;
     }
+
     /*
      * Check if this board equals a given board state
      */

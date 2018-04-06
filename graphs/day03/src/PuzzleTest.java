@@ -48,9 +48,9 @@ public class PuzzleTest {
         Board initial = new Board(initState);
         Solver solver = new Solver(initial);
         assertEquals(solver.isSolvable(), false);
-        solver = new Solver(new Board(new int[][]{{1, 8, 2},{0,4,3},{7,6,5}}));
+        solver = new Solver(new Board(new int[][]{{1, 8, 2}, {0, 4, 3}, {7, 6, 5}}));
         assertEquals(solver.isSolvable(), true);
-        solver = new Solver(new Board(new int[][]{{8, 1, 2},{0,4,3},{7,6,5}}));
+        solver = new Solver(new Board(new int[][]{{8, 1, 2}, {0, 4, 3}, {7, 6, 5}}));
         assertEquals(solver.isSolvable(), false);
     }
 
