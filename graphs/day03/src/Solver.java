@@ -26,7 +26,7 @@ public class Solver {
             this.board = board;
             this.moves = moves;
             this.prev = prev;
-            this.cost = this.moves + 2 * board.manhattan();
+            this.cost = this.moves + board.manhattan();
         }
 
         @Override
