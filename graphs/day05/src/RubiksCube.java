@@ -86,25 +86,26 @@ public class RubiksCube {
     // Given a character in ['u', 'U', 'r', 'R', 'f', 'F'], return a new rubik's cube with the rotation applied
     // Do not modify this rubik's cube.
     public RubiksCube rotate(char c) {
+        RubiksCube newRubiksCube = new RubiksCube(this);
         if (c == 'u') {
-            this.swap(1, 3, 7, 5);
+            newRubiksCube.swap(1, 3, 7, 5);
 
         } else if (c == 'U') {
-            this.swap(1, 5, 7, 3);
+            newRubiksCube.swap(1, 5, 7, 3);
 
         } else if (c == 'r') {
-            this.swap(4, 5, 7, 6);
+            newRubiksCube.swap(4, 5, 7, 6);
 
         } else if (c == 'R') {
-            this.swap(4, 6, 7, 5);
+            newRubiksCube.swap(4, 6, 7, 5);
 
         } else if (c == 'f') {
-            this.swap(0, 1, 5, 4);
+            newRubiksCube.swap(0, 1, 5, 4);
 
         } else {
-            this.swap(0, 4, 5, 1);
+            newRubiksCube.swap(0, 4, 5, 1);
         }
-        return this;
+        return newRubiksCube;
     }
 
     private void swap(int x1, int x2, int x3, int x4) {
