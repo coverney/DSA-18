@@ -1,11 +1,12 @@
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static java.lang.Math.abs;
+
 // use this class if you are designing your own Rubik's cube implementation
-public class RubiksCube {
+public class RubiksCube implements Comparable {
 
     private class Cubie {
-
         int id;
         int[] orien;
 
@@ -15,7 +16,7 @@ public class RubiksCube {
         }
 
         private void cross_product(int[] a) {
-            if (Math.abs(this.orien[0]) != Math.abs(a[0]) || Math.abs(this.orien[1]) != Math.abs(a[1]) || Math.abs(this.orien[2]) != Math.abs(a[2])) {
+            if (abs(this.orien[0]) != abs(a[0]) || abs(this.orien[1]) != abs(a[1]) || abs(this.orien[2]) != abs(a[2])) {
                 int[] result = new int[3];
                 result[0] = a[1] * this.orien[2] - a[2] * this.orien[1];
                 result[1] = a[2] * this.orien[0] - a[0] * this.orien[2];
@@ -43,9 +44,11 @@ public class RubiksCube {
 
     private Cubie[][][] cubes;
     private ArrayList<Character> rotations;
+    private int score;
 
     // initialize a solved rubiks cube
     public RubiksCube() {
+        this.score = 0;
         this.cubes = new Cubie[2][2][2];
         this.rotations = new ArrayList<>();
         int counter = 0;
@@ -59,25 +62,10 @@ public class RubiksCube {
         }
     }
 
-    // initialize a solved rubiks cube
-    public RubiksCube(int[] orien) {
-        this.cubes = new Cubie[2][2][2];
-        this.rotations = new ArrayList<>();
-        int counter = 0;
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                for (int k = 0; k < 2; k++) {
-                    this.cubes[i][j][k] = new Cubie(counter, orien);
-                    counter++;
-                }
-            }
-        }
-    }
-
-
     // creates a copy of the rubiks cube
     public RubiksCube(RubiksCube r) {
         this.rotations = new ArrayList<>(r.rotations);
+        this.score = r.rotations.size();
         this.cubes = new Cubie[2][2][2];
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
@@ -106,6 +94,13 @@ public class RubiksCube {
         return true;
     }
 
+    @Override
+    public int compareTo(Object o) {
+        if (!(o instanceof RubiksCube))
+            return -1;
+        return this.score - ((RubiksCube) o).score;
+    }
+
     /**
      * return a hashCode for this rubik's cube.
      * <p>
@@ -129,7 +124,7 @@ public class RubiksCube {
     }
 
     public boolean isSolved() {
-        RubiksCube goal = new RubiksCube(new int[]{0, 0, 1});
+        RubiksCube goal = new RubiksCube();
         return this.equals(goal);
     }
 
@@ -142,7 +137,6 @@ public class RubiksCube {
         }
         return rub;
     }
-
 
     // Given a character in ['u', 'U', 'r', 'R', 'f', 'F'], return a new rubik's cube with the rotation applied
     // Do not modify this rubik's cube.
@@ -172,7 +166,21 @@ public class RubiksCube {
     public RubiksCube rotateSolve(char c) {
         RubiksCube newRubiksCube = rotate(c);
         newRubiksCube.rotations.add(c);
+        newRubiksCube.score = 3 * newRubiksCube.rotations.size() + 2 * newRubiksCube.manhattan();
         return newRubiksCube;
+    }
+
+    private int manhattan() {
+        int manhattan = 0;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                for (int k = 0; k < 2; k++) {
+                    Cubie c = this.cubes[i][j][k];
+                    manhattan += abs(c.id / 4 - i) + abs((c.id / 2) % 2 - j) + abs(c.id % 2 - k);
+                }
+            }
+        }
+        return manhattan;
     }
 
     private void swap(int x1, int x2, int x3, int x4, int[] transformation) {
@@ -186,8 +194,6 @@ public class RubiksCube {
         this.cubes[x2 / 4][(x2 / 2) % 2][x2 % 2].cross_product(transformation);
         this.cubes[x3 / 4][(x3 / 2) % 2][x3 % 2].cross_product(transformation);
         this.cubes[x4 / 4][(x4 / 2) % 2][x4 % 2].cross_product(transformation);
-
-
     }
 
     // returns a random scrambled rubik's cube by applying random rotations
@@ -239,7 +245,15 @@ public class RubiksCube {
 
     // return the list of rotations needed to solve a rubik's cube
     public List<Character> solve() {
-        Queue<RubiksCube> open = new LinkedList<>();
+        return solve(false);
+    }
+
+    public List<Character> solve(boolean isBFS) {
+        Queue<RubiksCube> open;
+        if (isBFS)
+            open = new LinkedList<>();
+        else
+            open = new PriorityQueue<>();
         HashSet<RubiksCube> closed = new HashSet<>();
         closed.add(this);
         open.add(this);
@@ -257,7 +271,6 @@ public class RubiksCube {
         }
         return new ArrayList<>();
     }
-
 }
 
 
