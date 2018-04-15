@@ -149,22 +149,22 @@ public class RubiksCube {
     public RubiksCube rotate(char c) {
         RubiksCube newRubiksCube = new RubiksCube(this);
         if (c == 'u') {
-            newRubiksCube.swap(1, 3, 7, 5, new int[]{0, 0, -1});
+            newRubiksCube.swap(1, 3, 7, 5, new int[]{0, 0, 1});
 
         } else if (c == 'U') {
-            newRubiksCube.swap(1, 5, 7, 3, new int[]{0, 0, 1});
+            newRubiksCube.swap(1, 5, 7, 3, new int[]{0, 0, -1});
 
         } else if (c == 'r') {
-            newRubiksCube.swap(4, 5, 7, 6, new int[]{0, -1, 0});
+            newRubiksCube.swap(4, 5, 7, 6, new int[]{0, 1, 0});
 
         } else if (c == 'R') {
-            newRubiksCube.swap(4, 6, 7, 5, new int[]{0, 1, 0});
+            newRubiksCube.swap(4, 6, 7, 5, new int[]{0, -1, 0});
 
         } else if (c == 'f') {
-            newRubiksCube.swap(0, 1, 5, 4, new int[]{-1, 0, 0});
+            newRubiksCube.swap(0, 1, 5, 4, new int[]{1, 0, 0});
 
         } else {
-            newRubiksCube.swap(0, 4, 5, 1, new int[]{1, 0, 0});
+            newRubiksCube.swap(0, 4, 5, 1, new int[]{-1, 0, 0});
         }
         return newRubiksCube;
     }
