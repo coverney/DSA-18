@@ -59,17 +59,30 @@ public class RubiksCube {
         }
     }
 
+    // initialize a solved rubiks cube
+    public RubiksCube(int[] orien) {
+        this.cubes = new Cubie[2][2][2];
+        this.rotations = new ArrayList<>();
+        int counter = 0;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                for (int k = 0; k < 2; k++) {
+                    this.cubes[i][j][k] = new Cubie(counter, orien);
+                    counter++;
+                }
+            }
+        }
+    }
+
 
     // creates a copy of the rubiks cube
     public RubiksCube(RubiksCube r) {
-        int counter = 0;
         this.rotations = new ArrayList<>(r.rotations);
         this.cubes = new Cubie[2][2][2];
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < 2; k++) {
                     this.cubes[i][j][k] = new Cubie(r.cubes[i][j][k].id, r.cubes[i][j][k].orien);
-                    counter++;
                 }
             }
         }
@@ -105,19 +118,18 @@ public class RubiksCube {
     @Override
     public int hashCode() {
         StringBuilder representation = new StringBuilder();
-        for (int i = 0; i < this.cubes.length; i++) {
-            for (int j = 0; j < this.cubes[i].length; j++) {
-                for (int k = 0; k < this.cubes[i][j].length; k++) {
-                    representation.append(this.cubes[i][j][k].toString());
+        for (Cubie[][] cube : this.cubes) {
+            for (Cubie[] aCube : cube) {
+                for (Cubie anACube : aCube) {
+                    representation.append(anACube.toString());
                 }
             }
-
         }
         return representation.toString().hashCode();
     }
 
     public boolean isSolved() {
-        RubiksCube goal = new RubiksCube();
+        RubiksCube goal = new RubiksCube(new int[]{0, 0, 1});
         return this.equals(goal);
     }
 
@@ -135,6 +147,29 @@ public class RubiksCube {
     // Given a character in ['u', 'U', 'r', 'R', 'f', 'F'], return a new rubik's cube with the rotation applied
     // Do not modify this rubik's cube.
     public RubiksCube rotate(char c) {
+        RubiksCube newRubiksCube = new RubiksCube(this);
+        if (c == 'u') {
+            newRubiksCube.swap(1, 3, 7, 5, new int[]{0, 0, -1});
+
+        } else if (c == 'U') {
+            newRubiksCube.swap(1, 5, 7, 3, new int[]{0, 0, 1});
+
+        } else if (c == 'r') {
+            newRubiksCube.swap(4, 5, 7, 6, new int[]{0, -1, 0});
+
+        } else if (c == 'R') {
+            newRubiksCube.swap(4, 6, 7, 5, new int[]{0, 1, 0});
+
+        } else if (c == 'f') {
+            newRubiksCube.swap(0, 1, 5, 4, new int[]{-1, 0, 0});
+
+        } else {
+            newRubiksCube.swap(0, 4, 5, 1, new int[]{1, 0, 0});
+        }
+        return newRubiksCube;
+    }
+
+    public RubiksCube rotateSolve(char c) {
         RubiksCube newRubiksCube = new RubiksCube(this);
         newRubiksCube.rotations.add(c);
         if (c == 'u') {
@@ -214,7 +249,7 @@ public class RubiksCube {
         List<RubiksCube> neighbors = new ArrayList<>();
         char[] reference = new char[]{'u', 'U', 'r', 'R', 'f', 'F'};
         for (char instruction : reference) {
-            neighbors.add(rotate(instruction));
+            neighbors.add(rotateSolve(instruction));
         }
         return neighbors;
     }
@@ -232,13 +267,13 @@ public class RubiksCube {
                 return temp.rotations;
             }
             for (RubiksCube neigh : temp.neighbors()) {
-                if (!closed.contains(neigh)){
+                if (!closed.contains(neigh)) {
                     closed.add(neigh);
                     open.add(neigh);
                 }
             }
         }
-        return new ArrayList<Character>();
+        return new ArrayList<>();
     }
 
 }
