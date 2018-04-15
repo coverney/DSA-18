@@ -161,10 +161,10 @@ public class RubiksCube {
             newRubiksCube.swap(4, 6, 7, 5, new int[]{0, -1, 0});
 
         } else if (c == 'f') {
-            newRubiksCube.swap(0, 1, 5, 4, new int[]{1, 0, 0});
+            newRubiksCube.swap(7, 3, 2, 6, new int[]{-1, 0, 0});
 
         } else {
-            newRubiksCube.swap(0, 4, 5, 1, new int[]{-1, 0, 0});
+            newRubiksCube.swap(7, 6, 2, 3, new int[]{1, 0, 0});
         }
         return newRubiksCube;
     }
